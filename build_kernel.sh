@@ -1,5 +1,10 @@
 #!/bin/bash -e
 
+if [ $# -ne 1 ]; then
+  echo "Error: Exactly one argument is required."
+  exit 1
+fi
+
 DEFCONFIG=tici_defconfig
 
 # Get directories and make sure we're in the correct spot to start the build
@@ -7,13 +12,15 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 TOOLS=$DIR/tools
 TMP_DIR=/tmp/agnos-builder-tmp
 OUTPUT_DIR=$DIR/output
-BOOT_IMG=./boot.img
+BOOT_IMG="./$1.img"
 cd $DIR
 
 # Clone kernel if not done already
-if git submodule status --cached agnos-kernel-sdm845/ | grep "^-"; then
-  git submodule update --init agnos-kernel-sdm845
-fi
+#if git submodule status --cached agnos-kernel-sdm845/ | grep "^-"; then
+#  git submodule update --init agnos-kernel-sdm845
+#fi
+git submodule update --init agnos-kernel-sdm845
+
 cd agnos-kernel-sdm845
 
 $DIR/tools/extract_tools.sh

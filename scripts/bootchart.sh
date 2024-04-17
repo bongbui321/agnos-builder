@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-ssh tici "systemd-analyze plot > /tmp/bootchart.svg"
-scp tici:/tmp/bootchart.svg /tmp/bootchart.svg
+ssh c3x "systemd-analyze plot > /tmp/bootchart.svg"
+scp c3x:/tmp/bootchart.svg /tmp/bootchart.svg
 google-chrome /tmp/bootchart.svg
 
